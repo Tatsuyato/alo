@@ -25,17 +25,17 @@ type setupStatusResponse struct {
 }
 
 type setupConfigRequest struct {
-	SetupKey                 string `json:"setupKey"`
-	AdminAPIKey              string `json:"adminApiKey"`
-	DeployerAPIKey           string `json:"deployerApiKey"`
-	JWTSecret                string `json:"jwtSecret,omitempty"`
-	DefaultNamespace         string `json:"defaultNamespace"`
-	DefaultCPULimit          string `json:"defaultCpuLimit"`
-	DefaultMemoryLimit       string `json:"defaultMemoryLimit"`
-	DefaultServiceAccount    string `json:"defaultServiceAccount"`
-	EnableInitialAdmin       bool   `json:"enableInitialAdmin"`
-	InitialAdminProjectName  string `json:"initialAdminProjectName"`
-	InitialAdminProjectRepo  string `json:"initialAdminProjectRepo"`
+	SetupKey                string `json:"setupKey"`
+	AdminAPIKey             string `json:"adminApiKey"`
+	DeployerAPIKey          string `json:"deployerApiKey"`
+	JWTSecret               string `json:"jwtSecret,omitempty"`
+	DefaultNamespace        string `json:"defaultNamespace"`
+	DefaultCPULimit         string `json:"defaultCpuLimit"`
+	DefaultMemoryLimit      string `json:"defaultMemoryLimit"`
+	DefaultServiceAccount   string `json:"defaultServiceAccount"`
+	EnableInitialAdmin      bool   `json:"enableInitialAdmin"`
+	InitialAdminProjectName string `json:"initialAdminProjectName"`
+	InitialAdminProjectRepo string `json:"initialAdminProjectRepo"`
 }
 
 type setupResponse struct {

@@ -21,11 +21,11 @@ func (a *App) healthHandler(w http.ResponseWriter, r *http.Request) {
 
 	// Check environment variables
 	envStatus := map[string]any{
-		"PORT":              os.Getenv("PORT"),
-		"DB_PATH":           os.Getenv("DB_PATH"),
-		"API_KEY_ADMIN":     boolToString(os.Getenv("API_KEY_ADMIN") != ""),
-		"API_KEY_DEPLOYER":  boolToString(os.Getenv("API_KEY_DEPLOYER") != ""),
-		"JWT_SECRET":        boolToString(os.Getenv("JWT_SECRET") != ""),
+		"PORT":             os.Getenv("PORT"),
+		"DB_PATH":          os.Getenv("DB_PATH"),
+		"API_KEY_ADMIN":    boolToString(os.Getenv("API_KEY_ADMIN") != ""),
+		"API_KEY_DEPLOYER": boolToString(os.Getenv("API_KEY_DEPLOYER") != ""),
+		"JWT_SECRET":       boolToString(os.Getenv("JWT_SECRET") != ""),
 	}
 
 	// Check kubectl availability
@@ -49,9 +49,9 @@ func (a *App) healthHandler(w http.ResponseWriter, r *http.Request) {
 	}
 
 	writeJSON(w, http.StatusOK, map[string]any{
-		"ok":         true,
-		"service":    "alo-backend",
-		"timestamp":  time.Now().UTC().Format(time.RFC3339),
+		"ok":          true,
+		"service":     "alo-backend",
+		"timestamp":   time.Now().UTC().Format(time.RFC3339),
 		"environment": envStatus,
 		"kubernetes": map[string]any{
 			"kubectl_available": kubectlAvailable,
