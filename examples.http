@@ -1,0 +1,72 @@
+### Health
+GET http://127.0.0.1:8080/healthz
+
+### Machine status (auth required)
+GET http://127.0.0.1:8080/api/v1/machine/status
+X-API-Key: local-admin-key
+
+### Create project
+POST http://127.0.0.1:8080/api/v1/projects
+X-API-Key: local-admin-key
+Content-Type: application/json
+
+{
+  "name": "demo",
+  "repo": "https://github.com/example/repo.git",
+  "environment": "dev",
+  "namespace": "ns-a",
+  "cpuLimit": "1000m",
+  "memoryLimit": "1024Mi",
+  "serviceAccount": "deployer-sa"
+}
+
+### Create service
+POST http://127.0.0.1:8080/api/v1/services
+X-API-Key: local-admin-key
+Content-Type: application/json
+
+{
+  "projectId": 1,
+  "name": "api",
+  "image": "registry.example.com/demo/api",
+  "replicas": 2
+}
+
+### Enqueue command (dry-run)
+POST http://127.0.0.1:8080/api/v1/commands
+X-API-Key: local-admin-key
+Content-Type: application/json
+
+{
+  "projectId": 1,
+  "action": "delete",
+  "kind": "deployment",
+  "name": "api",
+  "dryRun": true
+}
+
+### Enqueue command apply
+POST http://127.0.0.1:8080/api/v1/commands
+X-API-Key: local-admin-key
+Content-Type: application/json
+
+{
+  "projectId": 1,
+  "action": "create",
+  "manifest": "apiVersion: apps/v1\nkind: Deployment\nmetadata:\n  name: api\nspec:\n  replicas: 1\n  selector:\n    matchLabels:\n      app: api\n  template:\n    metadata:\n      labels:\n        app: api\n    spec:\n      containers:\n        - name: api\n          image: nginx:1.27\n          resources:\n            limits:\n              cpu: 500m\n              memory: 256Mi\n"
+}
+
+### Enqueue build/deploy
+POST http://127.0.0.1:8080/api/v1/builds
+X-API-Key: local-admin-key
+Content-Type: application/json
+
+{
+  "projectId": 1,
+  "serviceId": 1,
+  "gitRef": "main"
+}
+
+### Check job
+GET http://127.0.0.1:8080/api/v1/jobs/job-123
+X-API-Key: local-admin-key
